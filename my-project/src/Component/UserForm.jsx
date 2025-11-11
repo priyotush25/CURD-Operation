@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const UserForm = () => {
   const [users, setUsers] = useState([]);
@@ -30,6 +31,9 @@ const UserForm = () => {
         console.log(data);
         if (data.insertedId) {
           alert("user added successfully");
+
+          const newUser = [...users, { name, email }];
+          setUsers(newUser);
 
           e.target.reset();
         }
@@ -90,9 +94,9 @@ const UserForm = () => {
           <p className="text-gray-500 text-center">No users added yet.</p>
         ) : (
           <ul className="space-y-3">
-            {users.map((user) => (
+            {users.map((user, idx) => (
               <li
-                key={user._id}
+                key={idx}
                 className="flex justify-between items-center bg-gray-100 p-3 rounded-md"
               >
                 <div>
@@ -100,12 +104,12 @@ const UserForm = () => {
                   <p className="text-sm text-gray-600">{user.email}</p>
                 </div>
                 <div className="space-x-2">
-                  <button
-                    // onClick={() => handleEdit(user)}
+                  <Link
+                    to={`/update/${user._id}`}
                     className="px-3 py-1 text-sm bg-yellow-400 rounded-md hover:bg-yellow-500"
                   >
                     Edit
-                  </button>
+                  </Link>
                   <button
                     onClick={() => handleDelete(user._id)}
                     className="px-3 py-1 text-sm bg-red-500 text-white rounded-md hover:bg-red-600"

@@ -62,6 +62,25 @@ async function run() {
       res.send(result);
     });
 
+    // update data
+    app.patch("/users/:id", async (req, res) => {
+      const id = req.params.id;
+      const updateUser = req.body;
+
+      const query = { _id: new ObjectId(id) };
+
+      const update = {
+        $set: {
+          name: updateUser.name,
+          email: updateUser.email,
+        },
+      };
+      const option = {};
+      const result = await userCollection.updateOne(query, update, option);
+
+      res.send(result);
+    });
+
     console.log("mongodb connection successfully");
   } catch (err) {
     console.log("mongodb connection fail : ", err);
