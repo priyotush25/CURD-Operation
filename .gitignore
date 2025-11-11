@@ -1,0 +1,8 @@
+# Node modules
+node_modules/
+my-project/node_modules/
+my-server/node_modules/
+
+# build files
+my-project/build/
+.env
